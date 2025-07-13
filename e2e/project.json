@@ -1,0 +1,29 @@
+{
+  "name": "e2e-nx-loki-plugin",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "e2e/src",
+  "implicitDependencies": ["nx-loki-plugin"],
+  "targets": {
+    "e2e": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "e2e/jest.config.ts",
+        "runInBand": true
+      },
+      "dependsOn": ["^build"]
+    },
+    "build": {
+      "dependsOn": ["lint"]
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "configurations": {
+        "dev": {
+          "fix": true
+        }
+      }
+    }
+  }
+}
